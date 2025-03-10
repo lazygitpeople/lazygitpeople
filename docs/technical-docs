@@ -1,0 +1,8 @@
+# Technical Documentation for LazyGitPeople
+
+This document outlines the technical architecture, implementation details, and configuration options for the LazyGitPeople GitHub automation service.
+
+## System Architecture
+
+LazyGitPeople uses a secure cloud-based architecture built on Microsoft Azure:
+
