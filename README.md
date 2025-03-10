@@ -45,5 +45,4 @@ LazyGitPeople can generate various types of GitHub activities:
 - **Feature Additions**: New components or features added to your projects
 - **Refactoring**: Code cleanup and organization improvements
 
-## Sample Commit Message
 
