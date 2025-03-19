@@ -1,76 +1,15 @@
-# Technical Documentation for LazyGitPeople
+# LazyGitPeople Service Overview
 
-This document outlines the technical architecture, implementation details, and configuration options for the LazyGitPeople GitHub automation service.
+This document provides a general overview of the LazyGitPeople service capabilities and options.
 
-## System Architecture
+## Service Capabilities
 
-LazyGitPeople uses a modern, edge-based architecture built on Cloudflare's global network:
+LazyGitPeople provides a unique combination of technologies to help maintain your GitHub presence:
 
-```
-┌────────────────┐     ┌─────────────┐     ┌──────────────┐
-│ Cloudflare     │────►│ Workers     │────►│ GitHub PAT   │
-│ Cron Triggers  │     │ Secrets     │     │ Storage      │
-└───────┬────────┘     └─────────────┘     └──────────────┘
-        │
-        ▼
-┌────────────────┐     ┌─────────────┐
-│ Cloudflare     │────►│ GitHub API  │
-│ Workers        │     │             │
-└───────┬────────┘     └──────┬──────┘
-        │                     │
-        ▼                     ▼
-┌────────────────┐     ┌─────────────┐
-│ OpenAI         │     │ User's      │
-│ Assistants API │     │ Repository  │
-└────────────────┘     └─────────────┘
-        │
-        ▼
-┌────────────────┐
-│ Cloudflare D1  │
-│ Database       │
-└────────────────┘
-```
-
-### Key Components
-
-1. **Cloudflare Pages**: Hosts our user interface and documentation
-2. **Cloudflare Workers**: Serverless functions that handle API requests and GitHub operations
-3. **Cloudflare D1**: Edge database for storing user configurations and project data
-4. **Workers Secrets**: Secure storage for GitHub tokens and API credentials
-5. **Cron Triggers**: Schedule automated commits at configurable intervals
-6. **OpenAI Assistants API**: Generates contextually appropriate code and documentation changes
-
-## Implementation Technologies
-
-- **Frontend Framework**: Next.js with Tailwind CSS
-- **Backend Runtime**: JavaScript/TypeScript on Cloudflare Workers
-- **Database**: Cloudflare D1 (SQLite at the edge)
-- **API Libraries**:
-  - GitHub REST API for repository operations
-  - OpenAI Assistants API for code generation
-- **Security**: Workers Secrets for credential storage
-- **Monitoring**: Cloudflare Analytics
-
-## Commit Generation Process
-
-1. **Repository Analysis**:
-   - Clone the target repository
-   - Analyze existing file structure and languages
-   - Identify potential areas for meaningful contributions
-
-2. **Change Generation**:
-   - Initialize or continue an OpenAI Assistant thread for the project
-   - Generate contextually relevant code or documentation
-   - Apply appropriate coding style and standards
-
-3. **Commit Creation**:
-   - Create a descriptive commit message with automated indicator
-   - Apply the changes with proper Git authorship
-   - Push to the remote repository
-
-4. **Cleanup**:
-   - Securely remove all temporary files and cloned repositories
-   - Log successful completion or errors
+- **Intelligent Code Generation**: Creates meaningful, contextual code contributions
+- **Commit Scheduling**: Automates the timing of GitHub contributions
+- **Multiple Language Support**: Works with various programming languages
+- **Project-Aware Changes**: Makes changes that respect your existing codebase
 
 ## Configuration Options
 
@@ -110,101 +49,41 @@ The following parameters can be configured for each repository:
 - `excluded_paths`: Files or directories to avoid modifying
 - `committer_name`: Custom name for commit author (always includes bot indicator)
 
-## Error Handling and Resilience
+## Commit Types
+
+Our service can create various types of meaningful contributions:
+
+1. **Documentation Updates**: README improvements, inline documentation
+2. **Bug Fixes**: Minor corrections to existing code
+3. **Feature Additions**: New functionality that complements existing code
+4. **Refactoring**: Code structure improvements
+5. **Performance Enhancements**: Optimizations to existing code
+
+## Service Reliability
 
 Our system implements multiple safeguards:
 
-1. **Retry Logic**: Failed operations retry with exponential backoff
-2. **Validation**: Generated changes are validated before committing
-3. **Rollback**: Ability to revert problematic changes
-4. **Rate Limiting**: Respect for GitHub API rate limits
-5. **Alerting**: Automated alerts for recurring issues
+1. **Content Validation**: Changes are verified before being committed
+2. **Conflict Prevention**: Smart detection of recent human commits
+3. **Rollback Capability**: Support for reverting problematic changes
+4. **Activity Monitoring**: Continuous monitoring of service operations
 
-## Scheduling Algorithm
+## Future Enhancements
 
-We use a specialized algorithm to create natural-looking commit patterns:
+We're continuously improving our service with features like:
 
-1. **Time Variation**: Commits occur at different times of day
-2. **Day Distribution**: Weighted distribution favoring weekdays
-3. **Burst Avoidance**: Prevention of unusual commit clusters
-4. **Consistency**: Long-term pattern maintenance
-
-## Performance Considerations
-
-- Edge computing model provides low-latency globally
-- Workers automatically scale to handle concurrent users
-- D1 database provides fast read/write operations at the edge
-
-## Cloudflare Worker Implementation
-
-Our Workers implementation follows these patterns:
-
-```javascript
-// Example Worker code for handling commit generation
-export default {
-  // Handle HTTP requests to the API
-  async fetch(request, env, ctx) {
-    const url = new URL(request.url);
-    
-    if (url.pathname === '/api/projects' && request.method === 'POST') {
-      return handleCreateProject(request, env);
-    }
-    
-    // Other API endpoints...
-    
-    return new Response('Not found', { status: 404 });
-  },
-  
-  // Handle scheduled commits
-  async scheduled(event, env, ctx) {
-    console.log("Running scheduled commit job:", event.cron);
-    
-    // Query D1 for projects needing commits
-    const { results } = await env.DB.prepare(
-      "SELECT * FROM projects WHERE is_active = 1 AND next_commit_at <= datetime('now')"
-    ).all();
-    
-    for (const project of results) {
-      ctx.waitUntil(processProjectCommit(project, env));
-    }
-  }
-};
-
-async function handleCreateProject(request, env) {
-  // Implementation for creating a new project
-}
-
-async function processProjectCommit(project, env) {
-  // Implementation for creating a commit
-}
-```
-
-## Future Technical Roadmap
-
-1. **GitHub App Transition**: Moving from PAT-based authentication to GitHub App for enhanced security
-2. **AI-Enhanced Generation**: Improved code generation using more sophisticated AI models
-3. **User Dashboard**: Web interface for configuring automation parameters
-4. **Multi-Repository Intelligence**: Smart coordination of changes across multiple repositories
-5. **Analytics**: Repository and commit performance metrics
-
-## Developer Integration
-
-For developers looking to extend or integrate with our service, we offer:
-
-- **Webhook Notifications**: Event notifications for successful commits
-- **Status API**: Check automation status and history
-- **Logging API**: Access to automation logs
+1. **Enhanced Project Understanding**: Better contextual awareness of your repositories
+2. **Advanced Customization**: More granular control over automated contributions
+3. **Activity Analytics**: Insights into your GitHub presence
+4. **Multi-Repository Coordination**: Smart management across multiple projects
 
 ## Technical Support
 
-For technical assistance, contact our development team at tech@lazygitpeople.com with the following information:
+For technical assistance, contact our support team at support@lazygitpeople.com with the following information:
 
 - Repository name
-- Error messages or unexpected behavior
+- Any error messages or unexpected behavior
 - Time of occurrence
 - Repository configuration
 
-Our technical team typically responds within 24 hours on business days.
-
----
-Answer from Perplexity: pplx.ai/share
+Our support team typically responds within 24 hours on business days.
