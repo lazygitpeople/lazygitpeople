@@ -14,7 +14,7 @@ LazyGitPeople is an automation service that helps developers maintain an active 
 ## How It Works
 
 1. **You invite our bot**: Add @lazygitpeople as a collaborator to repositories you want to automate
-2. **We schedule commits**: Our Azure-powered system generates code changes at configurable intervals
+2. **We schedule commits**: Our Cloudflare-powered system generates code changes at configurable intervals
 3. **Transparent processes**: All automated commits are clearly labeled with a 🤖 bot indicator
 4. **You maintain control**: Cancel the service anytime by removing the bot's access
 
@@ -32,17 +32,20 @@ LazyGitPeople is an automation service that helps developers maintain an active 
 4. We'll accept the invitation within 24 hours
 5. Automated commits will begin based on the default schedule (3-5 times per week)
 
-### Customization Options
-For custom schedules, specific languages, or other configuration needs, please contact us at [support@lazygitpeople.com](mailto:support@lazygitpeople.com).
+## Documentation
 
-## Types of Automated Contributions
+For more detailed information, check out these documentation pages:
 
-LazyGitPeople can generate various types of GitHub activities:
+- [Technical Documentation](docs/technical-docs.md)
+- [Frequently Asked Questions](docs/faq.md)
+- [Ethical Guidelines](docs/ethical-guidelines.md)
+- [Security Practices](docs/security.md)
 
-- **Code Updates**: Adding new functions, classes, or modules
-- **Documentation**: Creating or improving README files, inline comments, and documentation
-- **Bug Fixes**: Simulated bug fixes with meaningful commit messages
-- **Feature Additions**: New components or features added to your projects
-- **Refactoring**: Code cleanup and organization improvements
+## Contact & Support
 
+- 📧 Email: support@lazygitpeople.com
+- 🌐 Website: https://lazygit.yourdomain.com
 
+---
+
+© 2025 LazyGitPeople | [Terms of Service](https://lazygit.yourdomain.com/terms) | [Privacy Policy](https://lazygit.yourdomain.com/privacy)
