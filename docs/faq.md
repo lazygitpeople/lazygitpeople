@@ -42,14 +42,8 @@ We only access repositories where you've explicitly added @lazygitpeople as a co
 ### How often will commits be made?
 By default, 3-5 times per week on a randomized schedule to appear natural. Custom schedules are available.
 
-### How does your system handle rate limits?
-Our Cloudflare Workers architecture distributes operations globally to avoid GitHub API rate limits. We implement smart retry mechanisms and queue systems to ensure reliable operation.
-
 ### What happens if there's a conflict with my own commits?
 Our system detects recent human commits and adjusts its operations to avoid conflicts. If conflicts do occur, the system will resolve them using GitHub's standard merge strategies.
-
-### What cloud infrastructure do you use?
-We use Cloudflare's global network, including Cloudflare Workers for processing, Cloudflare D1 for database storage, and Cloudflare Pages for our user interface. This provides a fast, secure, and globally distributed service.
 
 ## Ethical Questions
 
