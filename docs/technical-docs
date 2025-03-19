@@ -4,27 +4,52 @@ This document outlines the technical architecture, implementation details, and c
 
 ## System Architecture
 
-LazyGitPeople uses a secure cloud-based architecture built on Microsoft Azure:
+LazyGitPeople uses a modern, edge-based architecture built on Cloudflare's global network:
 
+```
+┌────────────────┐     ┌─────────────┐     ┌──────────────┐
+│ Cloudflare     │────►│ Workers     │────►│ GitHub PAT   │
+│ Cron Triggers  │     │ Secrets     │     │ Storage      │
+└───────┬────────┘     └─────────────┘     └──────────────┘
+        │
+        ▼
+┌────────────────┐     ┌─────────────┐
+│ Cloudflare     │────►│ GitHub API  │
+│ Workers        │     │             │
+└───────┬────────┘     └──────┬──────┘
+        │                     │
+        ▼                     ▼
+┌────────────────┐     ┌─────────────┐
+│ OpenAI         │     │ User's      │
+│ Assistants API │     │ Repository  │
+└────────────────┘     └─────────────┘
+        │
+        ▼
+┌────────────────┐
+│ Cloudflare D1  │
+│ Database       │
+└────────────────┘
+```
 
 ### Key Components
 
-1. **Azure Function**: Time-triggered serverless function that initiates the commit process
-2. **Key Vault**: Secure storage for GitHub credentials and tokens
-3. **Git Operations Service**: Handles repository cloning, committing, and pushing
-4. **Code Generator Engine**: Creates contextually appropriate code and documentation changes
-5. **GitHub API**: Interface for all GitHub operations
+1. **Cloudflare Pages**: Hosts our user interface and documentation
+2. **Cloudflare Workers**: Serverless functions that handle API requests and GitHub operations
+3. **Cloudflare D1**: Edge database for storing user configurations and project data
+4. **Workers Secrets**: Secure storage for GitHub tokens and API credentials
+5. **Cron Triggers**: Schedule automated commits at configurable intervals
+6. **OpenAI Assistants API**: Generates contextually appropriate code and documentation changes
 
 ## Implementation Technologies
 
-- **Runtime Environment**: Python 3.9+
-- **Core Libraries**:
-  - GitPython for Git operations
-  - PyGithub for GitHub API interaction
-  - Azure SDK for Python
-  - Azure Identity for secure authentication
-- **Security**: Azure Managed Identities for secure credential access
-- **Monitoring**: Application Insights for telemetry and alerts
+- **Frontend Framework**: Next.js with Tailwind CSS
+- **Backend Runtime**: JavaScript/TypeScript on Cloudflare Workers
+- **Database**: Cloudflare D1 (SQLite at the edge)
+- **API Libraries**:
+  - GitHub REST API for repository operations
+  - OpenAI Assistants API for code generation
+- **Security**: Workers Secrets for credential storage
+- **Monitoring**: Cloudflare Analytics
 
 ## Commit Generation Process
 
@@ -34,7 +59,7 @@ LazyGitPeople uses a secure cloud-based architecture built on Microsoft Azure:
    - Identify potential areas for meaningful contributions
 
 2. **Change Generation**:
-   - Select appropriate file(s) for modification
+   - Initialize or continue an OpenAI Assistant thread for the project
    - Generate contextually relevant code or documentation
    - Apply appropriate coding style and standards
 
@@ -106,9 +131,53 @@ We use a specialized algorithm to create natural-looking commit patterns:
 
 ## Performance Considerations
 
-- Average commit operation completes in under 60 seconds
-- System scales to handle hundreds of repositories
-- Resource consumption optimized for cost efficiency
+- Edge computing model provides low-latency globally
+- Workers automatically scale to handle concurrent users
+- D1 database provides fast read/write operations at the edge
+
+## Cloudflare Worker Implementation
+
+Our Workers implementation follows these patterns:
+
+```javascript
+// Example Worker code for handling commit generation
+export default {
+  // Handle HTTP requests to the API
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    
+    if (url.pathname === '/api/projects' && request.method === 'POST') {
+      return handleCreateProject(request, env);
+    }
+    
+    // Other API endpoints...
+    
+    return new Response('Not found', { status: 404 });
+  },
+  
+  // Handle scheduled commits
+  async scheduled(event, env, ctx) {
+    console.log("Running scheduled commit job:", event.cron);
+    
+    // Query D1 for projects needing commits
+    const { results } = await env.DB.prepare(
+      "SELECT * FROM projects WHERE is_active = 1 AND next_commit_at <= datetime('now')"
+    ).all();
+    
+    for (const project of results) {
+      ctx.waitUntil(processProjectCommit(project, env));
+    }
+  }
+};
+
+async function handleCreateProject(request, env) {
+  // Implementation for creating a new project
+}
+
+async function processProjectCommit(project, env) {
+  // Implementation for creating a commit
+}
+```
 
 ## Future Technical Roadmap
 
@@ -136,3 +205,6 @@ For technical assistance, contact our development team at tech@lazygitpeople.com
 - Repository configuration
 
 Our technical team typically responds within 24 hours on business days.
+
+---
+Answer from Perplexity: pplx.ai/share
