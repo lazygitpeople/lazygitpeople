@@ -24,26 +24,26 @@ This document outlines the security measures implemented by LazyGitPeople to ens
 
 ## Infrastructure Security
 
-### Azure Security Architecture
+### Cloudflare Security Architecture
 
-1. **Key Vault Integration**:
-   - All credentials stored in Azure Key Vault
-   - Access controlled via Azure RBAC (Role-Based Access Control)
+1. **Workers Secrets**:
+   - All credentials stored in Cloudflare Workers Secrets
+   - Encryption at rest for all sensitive values
    - No credentials in code, configuration files, or environment variables
 
-2. **Managed Identities**:
-   - Azure Functions use system-assigned managed identities
-   - No service principals or shared credentials
-   - Identity-based authentication to all Azure services
+2. **Edge Isolation**:
+   - Each Cloudflare Worker runs in an isolated V8 sandbox
+   - No shared execution environments between customers
+   - Short-lived execution contexts prevent persistent threats
 
 3. **Network Security**:
-   - Service endpoints restrict traffic to Azure services
-   - IP restrictions limit access to function endpoints
-   - All traffic uses HTTPS/TLS 1.2+ encryption
+   - All traffic secured with TLS 1.3
+   - Automatic DDoS protection with Cloudflare's global network
+   - IP reputation filtering at the edge
 
 4. **Monitoring & Alerting**:
-   - Real-time monitoring for suspicious activities
-   - Alerts for unauthorized access attempts
+   - Real-time monitoring through Cloudflare Analytics
+   - Alerts for suspicious activities and error rates
    - Continuous security scanning of infrastructure
 
 ## Operational Security
@@ -58,7 +58,7 @@ This document outlines the security measures implemented by LazyGitPeople to ens
 
 2. **Deployment Security**:
    - CI/CD pipeline security checks
-   - Infrastructure as Code (IaC) security validation
+   - Wrangler deployment protections
    - Least privilege principle for deployment credentials
 
 3. **Access Control**:
