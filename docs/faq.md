@@ -23,7 +23,14 @@ Yes. We offer customization for:
 - Types of changes (documentation, code improvements, new features)
 - Project focus areas
 
-Contact us for custom requirements.
+All plans include customization options, with more advanced options available in Pro and Premium plans.
+
+### Can I generate new projects automatically?
+Yes! Our project generation feature allows you to create complete projects through either:
+- An interactive questionnaire that guides you through project setup
+- An advanced mode where you can directly specify project requirements
+
+Projects are generated with proper structure, documentation, and quality based on your subscription tier.
 
 ### How do I stop the service?
 Simply remove @lazygitpeople as a collaborator from your repository. All automation will immediately cease.

@@ -1,6 +1,6 @@
 # LazyGitPeople Service Overview
 
-This document provides a general overview of the LazyGitPeople service capabilities and options.
+This document provides a general overview of the LazyGitPeople service capabilities, options, and subscription plans.
 
 ## Service Capabilities
 
@@ -58,6 +58,58 @@ Our service can create various types of meaningful contributions:
 3. **Feature Additions**: New functionality that complements existing code
 4. **Refactoring**: Code structure improvements
 5. **Performance Enhancements**: Optimizations to existing code
+
+## Subscription Plans
+
+LazyGitPeople offers three subscription tiers with varying features:
+
+### Starter Plan ($9.99/month)
+- **Repositories**: 2 repositories with automated commits
+- **Weekly Commits**: 2 mid-tier quality commits per week
+- **Languages**: All supported languages
+- **Support**: Email support
+- **Trial**: 7-day free trial
+
+### Pro Plan ($15.99/month)
+- **Repositories**: 5 repositories with automated commits
+- **Weekly Commits**: 5 mid-tier quality commits per week
+- **Languages**: All supported languages
+- **Support**: Priority email support
+- **Additional Features**: Custom commit scheduling
+- **Trial**: 7-day free trial
+
+### Premium Plan ($24.99/month)
+- **Repositories**: 10 repositories with automated commits
+- **Weekly Commits**: 3 high-tier quality commits per week
+- **Languages**: All supported languages
+- **Support**: Priority email & chat support
+- **Additional Features**: Advanced customization options, custom project templates
+- **Trial**: 7-day free trial
+
+## Project Generation
+
+Our service includes powerful project generation capabilities:
+
+### Quick-Start Projects
+Users can generate new projects based on templates or custom requirements through an interactive questionnaire or advanced direct input.
+
+#### Interactive Project Questionnaire
+- Project type (web app, CLI tool, library, etc.)
+- Primary programming language(s)
+- Key features needed
+- Complexity level
+- Documentation requirements
+
+#### Advanced Project Definition
+Experienced users can provide detailed specifications directly via a custom prompt format that allows fine-grained control over project structure, technologies, and implementation details.
+
+### Project Quality Tiers
+
+| Tier | Description | Features |
+|------|-------------|----------|
+| Basic | Functional fundamentals | Core functionality, minimal documentation, basic tests |
+| Mid-tier | Professional standard | Comprehensive features, good documentation, test coverage |
+| High-tier | Premium quality | Advanced features, extensive documentation, complete test coverage, performance optimizations |
 
 ## Service Reliability
 
