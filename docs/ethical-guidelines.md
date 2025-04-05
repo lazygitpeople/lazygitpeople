@@ -30,6 +30,17 @@ We maintain quality in our automated contributions:
 2. **Meaningful Changes**: We avoid nonsensical or purely cosmetic changes.
 3. **Contextual Awareness**: Generated code attempts to match the style and purpose of the repository.
 4. **Beneficial Additions**: We focus on adding documentation, examples, and demonstrations that add value.
+5. **Tiered Quality**: We offer different quality tiers (basic, mid-tier, and high-tier) to match your subscription plan, with higher tiers providing more sophisticated and comprehensive contributions.
+
+### Project Generation Ethics
+
+Our project generation feature follows these ethical principles:
+
+1. **Educational Purpose**: Generated projects are meant for learning, demonstration, and portfolio building.
+2. **Customization**: Users can customize projects to align with their skills and professional goals.
+3. **Transparent Generation**: All generated projects include comments indicating AI assistance.
+4. **User Ownership**: You maintain full ownership of generated projects with the right to modify them as needed.
+5. **No Plagiarism**: Generated projects avoid direct copying of existing copyrighted codebases.
 
 ## Recommended Ethical Usage
 

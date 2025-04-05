@@ -29,6 +29,7 @@ This document outlines the privacy and security measures implemented by LazyGitP
    - We collect only the minimum information needed to provide the service
    - Repository content is only temporarily accessed during commit operations
    - No long-term storage of your code or repository contents
+   - Credit card information is verified but not stored directly on our servers
 
 2. **Secure Processing**:
    - All operations occur in secure, isolated environments
